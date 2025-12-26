@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Marllon DevSec | System Access</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Marllon DevSec // System Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Import VT323 for 8-bit terminal look -->
+    <!-- Google Fonts: VT323 for terminal text and Press Start 2P for headers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
-            colors: {
-              'hacker-neon': '#00FF00',
-              'hacker-red': '#FF0000', // Added vibrant red for links
-              'hacker-dark': '#001100',
-              'hacker-dim': '#003300',
-            },
             fontFamily: {
-              // Changed to VT323 for 8-bit look
-              mono: ['"VT323"', 'monospace'],
+              'pixel': ['"Press Start 2P"', 'cursive'],
+              'terminal': ['"VT323"', 'monospace'],
+            },
+            colors: {
+              'hacker-green': '#00ff00', // Pure Neon Green (Accents)
+              'terminal-light': '#d4ffda', // Pale Green (Readable Body Text)
+              'hacker-dark': '#050a05', // Deep dark green/black
+              'neon-red': '#ff3333', // Alert Red
             },
             animation: {
               'blink': 'blink 1s step-end infinite',
+              'scanline': 'scanline 8s linear infinite',
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             },
             keyframes: {
               blink: {
                 '0%, 100%': { opacity: '1' },
                 '50%': { opacity: '0' },
+              },
+              scanline: {
+                '0%': { transform: 'translateY(-100%)' },
+                '100%': { transform: 'translateY(100%)' },
               }
+            },
+            boxShadow: {
+              'neon': '0 0 5px rgba(0, 255, 0, 0.5), 0 0 10px rgba(0, 255, 0, 0.3)',
+            },
+            dropShadow: {
+              'glow': '0 0 5px rgba(0, 255, 0, 0.9)',
             }
           }
         }
@@ -40,66 +52,41 @@
     <style>
       body {
         background-color: black;
-        color: #00FF00;
         overflow-x: hidden;
-        text-shadow: 0 0 5px rgba(0, 255, 0, 0.7); /* CRT Glow Effect */
-        font-size: 18px; /* Slightly larger base size for pixel font */
-        
-        /* Custom Retro Cursor */
-        cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAABxpREhUVE5kAAgAAAAAAAAAAAAAAAEAAAAAWAAAAAAALwAF7c6V1QAAAEVJREFUOBFj/P///38GKgAjkyVGcRoGHg1AAxq0tLSw4XIa3QCeNI44A5BjcPkN3QB8voP04HMa3QCc7iDPANQIfBqIBgC82w/xXQmnOQAAAABJRU5ErkJggg=='), auto;
+        cursor: crosshair;
+      }
+      
+      a, button, [role="button"] {
+        cursor: pointer; /* Keeps usability while maintaining style on background */
       }
 
-      /* Hover states for interactive elements to keep the custom cursor */
-      a, button, .cursor-pointer {
-        cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAABxpREhUVE5kAAgAAAAAAAAAAAAAAAEAAAAAWAAAAAAALwAF7c6V1QAAAEVJREFUOBFj/P///38GKgAjkyVGcRoGHg1AAxq0tLSw4XIa3QCeNI44A5BjcPkN3QB8voP04HMa3QCc7iDPANQIfBqIBgC82w/xXQmnOQAAAABJRU5ErkJggg=='), pointer;
-      }
-
-      /* Custom Scrollbar for Webkit */
+      /* Custom scrollbar */
       ::-webkit-scrollbar {
-        width: 12px;
+        width: 8px;
       }
       ::-webkit-scrollbar-track {
         background: #000;
-        border-left: 1px solid #00FF00;
       }
       ::-webkit-scrollbar-thumb {
-        background: #00FF00;
-        border: 2px solid #000;
-        box-shadow: 0 0 5px #00FF00;
+        background: #00ff00; 
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #CCFFCC;
+        background: #ccffcc; 
       }
-      
-      .retro-border {
-        box-shadow: 
-          inset 2px 2px 0px 0px #00FF00,
-          inset -2px -2px 0px 0px #003300;
+      .text-glow {
+        text-shadow: 0 0 4px rgba(0, 255, 0, 0.6);
       }
-      
-      .scanline {
-        width: 100%;
-        height: 100px;
-        z-index: 10;
-        background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0, 255, 0, 0.1) 50%, rgba(0,0,0,0) 100%);
-        opacity: 0.1;
-        position: absolute;
-        bottom: 100%;
-        animation: scanline 10s linear infinite;
-        pointer-events: none;
+      .text-glow-strong {
+        text-shadow: 0 0 8px rgba(0, 255, 0, 0.9);
       }
-
-      @keyframes scanline {
-        0% { bottom: 100%; }
-        100% { bottom: -100px; }
+      .text-glow-red {
+        text-shadow: 0 0 5px rgba(255, 51, 51, 0.8);
       }
 
       /* Glitch Effect */
       .glitch {
         position: relative;
-        color: #00FF00;
-        font-weight: 900;
-        text-shadow: 2px 2px 0px #003300;
+        color: #00ff00;
       }
       .glitch::before,
       .glitch::after {
@@ -113,70 +100,71 @@
       }
       .glitch::before {
         left: 2px;
-        text-shadow: -1px 0 #ff00c1;
-        clip: rect(44px, 450px, 56px, 0);
-        animation: glitch-anim 5s infinite linear alternate-reverse;
+        text-shadow: -2px 0 #ff00c1;
+        clip: rect(24px, 550px, 90px, 0);
+        animation: glitch-anim-1 3s infinite linear alternate-reverse;
       }
       .glitch::after {
         left: -2px;
-        text-shadow: -1px 0 #00fff9;
-        clip: rect(44px, 450px, 56px, 0);
-        animation: glitch-anim2 5s infinite linear alternate-reverse;
+        text-shadow: -2px 0 #00fff9;
+        clip: rect(85px, 550px, 140px, 0);
+        animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
       }
-      @keyframes glitch-anim {
-        0% { clip: rect(31px, 9999px, 94px, 0); transform: skew(0.85deg); }
-        5% { clip: rect(70px, 9999px, 11px, 0); transform: skew(0.65deg); }
-        10% { clip: rect(2px, 9999px, 81px, 0); transform: skew(0.06deg); }
-        15% { clip: rect(72px, 9999px, 35px, 0); transform: skew(0.19deg); }
-        20% { clip: rect(2px, 9999px, 64px, 0); transform: skew(0.08deg); }
-        25% { clip: rect(9px, 9999px, 54px, 0); transform: skew(0.79deg); }
-        30% { clip: rect(66px, 9999px, 12px, 0); transform: skew(0.79deg); }
-        35% { clip: rect(31px, 9999px, 17px, 0); transform: skew(0.12deg); }
-        40% { clip: rect(54px, 9999px, 11px, 0); transform: skew(0.99deg); }
-        45% { clip: rect(69px, 9999px, 86px, 0); transform: skew(0.68deg); }
-        50% { clip: rect(20px, 9999px, 86px, 0); transform: skew(0.11deg); }
-        55% { clip: rect(42px, 9999px, 36px, 0); transform: skew(0.53deg); }
-        60% { clip: rect(3px, 9999px, 87px, 0); transform: skew(0.04deg); }
-        65% { clip: rect(66px, 9999px, 39px, 0); transform: skew(0.19deg); }
-        70% { clip: rect(13px, 9999px, 73px, 0); transform: skew(0.62deg); }
-        75% { clip: rect(77px, 9999px, 31px, 0); transform: skew(0.56deg); }
-        80% { clip: rect(2px, 9999px, 36px, 0); transform: skew(0.97deg); }
-        85% { clip: rect(71px, 9999px, 73px, 0); transform: skew(0.02deg); }
-        90% { clip: rect(15px, 9999px, 74px, 0); transform: skew(0.43deg); }
-        95% { clip: rect(36px, 9999px, 8px, 0); transform: skew(0.36deg); }
-        100% { clip: rect(30px, 9999px, 4px, 0); transform: skew(0.56deg); }
+
+      @keyframes glitch-anim-1 {
+        0% { clip: rect(70px, 9999px, 76px, 0); }
+        5% { clip: rect(32px, 9999px, 14px, 0); }
+        10% { clip: rect(98px, 9999px, 86px, 0); }
+        15% { clip: rect(66px, 9999px, 3px, 0); }
+        20% { clip: rect(10px, 9999px, 85px, 0); }
+        25% { clip: rect(8px, 9999px, 97px, 0); }
+        30% { clip: rect(110px, 9999px, 10px, 0); }
+        35% { clip: rect(3px, 9999px, 60px, 0); }
+        40% { clip: rect(44px, 9999px, 108px, 0); }
+        45% { clip: rect(56px, 9999px, 2px, 0); }
+        50% { clip: rect(18px, 9999px, 45px, 0); }
+        55% { clip: rect(88px, 9999px, 32px, 0); }
+        60% { clip: rect(10px, 9999px, 130px, 0); }
+        65% { clip: rect(40px, 9999px, 20px, 0); }
+        70% { clip: rect(100px, 9999px, 50px, 0); }
+        75% { clip: rect(20px, 9999px, 140px, 0); }
+        80% { clip: rect(50px, 9999px, 60px, 0); }
+        85% { clip: rect(10px, 9999px, 80px, 0); }
+        90% { clip: rect(90px, 9999px, 10px, 0); }
+        95% { clip: rect(30px, 9999px, 110px, 0); }
+        100% { clip: rect(60px, 9999px, 40px, 0); }
       }
-      @keyframes glitch-anim2 {
-        0% { clip: rect(66px, 9999px, 3px, 0); transform: skew(0.25deg); }
-        5% { clip: rect(3px, 9999px, 2px, 0); transform: skew(0.88deg); }
-        10% { clip: rect(98px, 9999px, 74px, 0); transform: skew(0.32deg); }
-        15% { clip: rect(60px, 9999px, 42px, 0); transform: skew(0.24deg); }
-        20% { clip: rect(2px, 9999px, 20px, 0); transform: skew(0.51deg); }
-        25% { clip: rect(78px, 9999px, 95px, 0); transform: skew(0.35deg); }
-        30% { clip: rect(41px, 9999px, 80px, 0); transform: skew(0.25deg); }
-        35% { clip: rect(25px, 9999px, 66px, 0); transform: skew(0.56deg); }
-        40% { clip: rect(51px, 9999px, 9px, 0); transform: skew(0.79deg); }
-        45% { clip: rect(52px, 9999px, 89px, 0); transform: skew(0.48deg); }
-        50% { clip: rect(100px, 9999px, 16px, 0); transform: skew(0.97deg); }
-        55% { clip: rect(87px, 9999px, 39px, 0); transform: skew(0.81deg); }
-        60% { clip: rect(66px, 9999px, 3px, 0); transform: skew(0.55deg); }
-        65% { clip: rect(40px, 9999px, 92px, 0); transform: skew(0.17deg); }
-        70% { clip: rect(35px, 9999px, 48px, 0); transform: skew(0.6deg); }
-        75% { clip: rect(100px, 9999px, 35px, 0); transform: skew(0.64deg); }
-        80% { clip: rect(22px, 9999px, 84px, 0); transform: skew(0.8deg); }
-        85% { clip: rect(13px, 9999px, 29px, 0); transform: skew(0.99deg); }
-        90% { clip: rect(96px, 9999px, 65px, 0); transform: skew(0.39deg); }
-        95% { clip: rect(24px, 9999px, 96px, 0); transform: skew(0.1deg); }
-        100% { clip: rect(42px, 9999px, 89px, 0); transform: skew(0.67deg); }
+      @keyframes glitch-anim-2 {
+        0% { clip: rect(12px, 9999px, 45px, 0); }
+        5% { clip: rect(100px, 9999px, 14px, 0); }
+        10% { clip: rect(6px, 9999px, 86px, 0); }
+        15% { clip: rect(76px, 9999px, 3px, 0); }
+        20% { clip: rect(20px, 9999px, 85px, 0); }
+        25% { clip: rect(58px, 9999px, 97px, 0); }
+        30% { clip: rect(10px, 9999px, 10px, 0); }
+        35% { clip: rect(63px, 9999px, 60px, 0); }
+        40% { clip: rect(4px, 9999px, 108px, 0); }
+        45% { clip: rect(26px, 9999px, 2px, 0); }
+        50% { clip: rect(68px, 9999px, 45px, 0); }
+        55% { clip: rect(18px, 9999px, 32px, 0); }
+        60% { clip: rect(70px, 9999px, 130px, 0); }
+        65% { clip: rect(20px, 9999px, 20px, 0); }
+        70% { clip: rect(60px, 9999px, 50px, 0); }
+        75% { clip: rect(10px, 9999px, 140px, 0); }
+        80% { clip: rect(40px, 9999px, 60px, 0); }
+        85% { clip: rect(90px, 9999px, 80px, 0); }
+        90% { clip: rect(20px, 9999px, 10px, 0); }
+        95% { clip: rect(50px, 9999px, 110px, 0); }
+        100% { clip: rect(80px, 9999px, 40px, 0); }
       }
     </style>
   <script type="importmap">
 {
   "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
   }
 }
 </script>

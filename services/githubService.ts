@@ -1,19 +1,20 @@
 import { GitHubRepo } from '../types';
 
-export const fetchRepos = async (username: string): Promise<GitHubRepo[]> => {
+const USERNAME = 'marllondevsec';
+
+export const fetchRepositories = async (): Promise<GitHubRepo[]> => {
   try {
-    const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&direction=desc`);
+    const response = await fetch(`https://api.github.com/users/${USERNAME}/repos?sort=updated&direction=desc`);
+    
     if (!response.ok) {
-      throw new Error('Failed to fetch repositories');
+      throw new Error(`GitHub API Error: ${response.statusText}`);
     }
-    const data = await response.json();
-    return data as GitHubRepo[];
+
+    const data: GitHubRepo[] = await response.json();
+    // Filter out forks if desired, currently returning all
+    return data;
   } catch (error) {
-    console.error("Error fetching repos:", error);
+    console.error("Failed to fetch repositories", error);
     return [];
   }
 };
-
-export const fetchProfileImage = async (username: string): Promise<string> => {
-    return `https://github.com/${username}.png`;
-}

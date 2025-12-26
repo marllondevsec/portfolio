@@ -1,201 +1,254 @@
-import React, { useState, useEffect } from 'react';
-import MatrixRain from './components/MatrixRain';
-import RetroWindow from './components/RetroWindow';
-import ProfileSection from './components/ProfileSection';
-import RepoList from './components/RepoList';
-import { fetchProfileImage } from './services/githubService';
-import { TabState } from './types';
+import React, { useEffect, useState } from 'react';
+import MatrixBackground from './components/MatrixBackground';
+import RetroBox from './components/RetroBox';
+import Navigation from './components/Navigation';
+import TerminalContact from './components/TerminalContact';
+import { fetchRepositories } from './services/githubService';
+import { GitHubRepo } from './types';
+import { Cpu, Shield, ExternalLink, Star, GitBranch, Linkedin, AlertTriangle, ArrowRight, Skull, Mail, Copy, Check } from 'lucide-react';
 
-function App() {
-  const [activeTab, setActiveTab] = useState<TabState>(TabState.PROFILE);
-  const [avatar, setAvatar] = useState('https://picsum.photos/200');
+const App: React.FC = () => {
+  const [repos, setRepos] = useState<GitHubRepo[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [view, setView] = useState<'profile' | 'projects'>('profile');
+  const [bootSequence, setBootSequence] = useState(true);
 
   useEffect(() => {
-    fetchProfileImage('marllondevsec').then(setAvatar);
+    const loadData = async () => {
+      const data = await fetchRepositories();
+      setRepos(data);
+      setLoading(false);
+    };
+    loadData();
+    
+    // Simulate boot up
+    setTimeout(() => setBootSequence(false), 1500);
   }, []);
 
+  if (bootSequence) {
+     return (
+        <div className="min-h-screen bg-black flex items-center justify-center font-terminal text-hacker-green text-2xl">
+           <div className="text-left">
+              <p>> INITIALIZING KERNEL...</p>
+              <p>> MOUNTING FILESYSTEM... [OK]</p>
+              <p>> LOADING MARLLON_DEVSEC PROFILE...</p>
+              <span className="animate-blink">_</span>
+           </div>
+        </div>
+     );
+  }
+
   return (
-    <div className="min-h-screen relative font-mono selection:bg-hacker-neon selection:text-black">
-      <MatrixRain />
-      
-      {/* Scanline overlay effect */}
-      <div className="scanline"></div>
-      
-      <style>{`
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        .scanline {
-            width: 100%;
-            height: 100px;
-            z-index: 50;
-            background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0, 255, 0, 0.2) 50%, rgba(0,0,0,0) 100%);
-            opacity: 0.1;
-            position: fixed;
-            bottom: 100%;
-            animation: scanline 10s linear infinite;
-            pointer-events: none;
-        }
-        @keyframes scanline {
-            0% { bottom: 100%; }
-            100% { bottom: -100px; }
-        }
-      `}</style>
+    <div className="min-h-screen bg-black text-terminal-light font-terminal selection:bg-hacker-green selection:text-black overflow-x-hidden">
+      <MatrixBackground />
 
-      <div className="max-w-6xl mx-auto p-4 md:p-8 relative z-10">
+      {/* Main Container */}
+      <div className="relative z-10 w-full min-h-screen flex flex-col">
         
-        {/* Header / Logo */}
-        <header className="mb-8 p-4 border-2 border-hacker-neon bg-black/80 backdrop-blur-sm shadow-[0_0_20px_rgba(0,255,0,0.3)]">
-          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
-             <div>
-                <p className="text-sm text-hacker-neon mb-1 animate-pulse">root@marllon:~/portfolio# ./init_display.sh</p>
-                
-                {/* Logo Container */}
-                <div className="flex flex-col md:flex-row items-start md:items-baseline gap-1 md:gap-4 mt-2">
-                    {/* Part 1: MARLLON_ */}
-                    <div className="glitch-wrapper">
-                        <h1 className="glitch text-6xl md:text-8xl font-black tracking-tighter" data-text="MARLLON_">
-                            MARLLON_
-                        </h1>
-                    </div>
-
-                    {/* Part 2: DEVSEC (Highlighted Block) */}
-                    <div className="relative group cursor-default">
-                        {/* Glow effect */}
-                        <div className="absolute inset-0 bg-hacker-neon blur-md opacity-40 group-hover:opacity-80 transition-opacity duration-300"></div>
-                        
-                        {/* The Block */}
-                        <div className="relative bg-hacker-neon text-black px-4 py-1 transform -skew-x-12 border-2 border-black group-hover:skew-x-0 transition-all duration-300 shadow-[4px_4px_0px_rgba(0,50,0,1)]">
-                             <h1 className="text-5xl md:text-7xl font-black tracking-tighter flex items-center gap-2">
-                                <span className="text-3xl opacity-50 select-none">{'{'}</span>
-                                DEVSEC
-                                <span className="text-3xl opacity-50 select-none">{'}'}</span>
-                             </h1>
-                             
-                             {/* Decorative tech bits on the block */}
-                             <div className="absolute top-0 left-0 w-2 h-2 bg-black"></div>
-                             <div className="absolute bottom-0 right-0 w-2 h-2 bg-black"></div>
-                             <div className="absolute top-0 right-2 w-8 h-[1px] bg-black/50"></div>
-                             <div className="absolute bottom-0 left-2 w-8 h-[1px] bg-black/50"></div>
-                        </div>
-                    </div>
-                </div>
-
-             </div>
-             <div className="text-right hidden md:block">
-                 <p className="text-hacker-neon text-sm">KERNEL: 5.15.0-SEC-HARDENED</p>
-                 <p className="text-hacker-neon text-sm">UPTIME: 999999 HRS</p>
-                 <p className="text-hacker-neon text-sm font-bold text-shadow">ENCRYPTED CONNECTION ESTABLISHED</p>
-             </div>
-          </div>
-          
-          <div className="flex flex-col md:flex-row justify-between items-center mt-6 border-t border-hacker-neon pt-2">
-            <p className="text-sm md:text-base text-hacker-neon font-bold uppercase tracking-widest bg-hacker-neon text-black px-2 py-0.5">
-              ACCESS_LEVEL: ROOT_ADMIN
-            </p>
-            <div className="w-full md:w-1/2 text-sm text-hacker-neon bg-hacker-dim/30 border border-hacker-neon p-1 mt-2 md:mt-0 overflow-hidden whitespace-nowrap">
-               <div style={{ animation: 'marquee 20s linear infinite', display: 'inline-block' }}>
-                   *** LATEST RESEARCH: Malware Evasion Techniques in Windows 11 *** NEW REPO DEPLOYED *** SECURITY IS A PROCESS, NOT A PRODUCT ***
-               </div>
-            </div>
-          </div>
+        {/* Header Section */}
+        <header className="pt-12 pb-4 px-4 text-center relative z-20">
+          <h1 className="font-pixel text-4xl md:text-6xl text-hacker-green mb-2 tracking-tighter drop-shadow-glow">
+            MARLLON <span className="glitch inline-block" data-text="DEVSEC">DEVSEC</span>
+          </h1>
+          <div className="h-px w-32 bg-hacker-green mx-auto mb-4 shadow-neon"></div>
+          <p className="font-terminal text-xl text-hacker-green/80 tracking-widest uppercase">
+            System Administrator // Security Researcher
+          </p>
         </header>
 
-        {/* Navigation - Pseudo Desktop */}
-        <div className="flex gap-2 mb-6 flex-wrap">
-          <button 
-            onClick={() => setActiveTab(TabState.PROFILE)}
-            className={`px-6 py-2 text-xl font-bold border-2 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1 ${activeTab === TabState.PROFILE ? 'bg-hacker-neon text-black border-hacker-neon' : 'bg-black text-hacker-neon border-hacker-neon hover:bg-hacker-neon hover:text-black'}`}
-          >
-            [ BIO.EXE ]
-          </button>
-          <button 
-            onClick={() => setActiveTab(TabState.PROJECTS)}
-            className={`px-6 py-2 text-xl font-bold border-2 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1 ${activeTab === TabState.PROJECTS ? 'bg-hacker-neon text-black border-hacker-neon' : 'bg-black text-hacker-neon border-hacker-neon hover:bg-hacker-neon hover:text-black'}`}
-          >
-            [ REPOS.DIR ]
-          </button>
-        </div>
+        <Navigation currentView={view} setView={setView} />
 
-        {/* Content Area */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <main className="flex-grow max-w-5xl mx-auto w-full px-4 pb-16 transition-opacity duration-500">
           
-          {/* Main Content Window */}
-          <div className="lg:col-span-2">
-            {activeTab === TabState.PROFILE && (
-              <RetroWindow title="User_Profile.md" isActive={true}>
-                <ProfileSection avatarUrl={avatar} />
-              </RetroWindow>
-            )}
+          {/* --- PROFILE TAB --- */}
+          {view === 'profile' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
+                <RetroBox id="profile" title="USER_IDENTITY_LOG">
+                    <div className="grid md:grid-cols-[280px_1fr] gap-8 items-start">
+                    
+                    {/* Left Column: Avatar & Quick Stats */}
+                    <div className="flex flex-col gap-4">
+                        <div className="border border-hacker-green bg-black p-1 shadow-neon relative group">
+                            <img 
+                                src="https://github.com/marllondevsec.png" 
+                                alt="Marllon DevSec" 
+                                className="w-full h-auto filter brightness-110 contrast-125"
+                            />
+                            {/* Scanning Line Effect over image */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-hacker-green/20 to-transparent h-4 w-full animate-scanline opacity-50 pointer-events-none"></div>
+                        </div>
+                        
+                        <div className="bg-hacker-green/5 border border-hacker-green/30 p-3 text-center">
+                           <div className="font-pixel text-xs text-hacker-green mb-1">CURRENT STATUS</div>
+                           <div className="text-white animate-pulse">AVAILABLE FOR OPS</div>
+                        </div>
 
-            {activeTab === TabState.PROJECTS && (
-              <RetroWindow title="GitHub_Repositories" isActive={true}>
-                <RepoList />
-              </RetroWindow>
-            )}
-          </div>
-
-          {/* Sidebar Widgets (Always Visible on Desktop) */}
-          <div className="space-y-6">
-            <RetroWindow title="System_Status" className="text-sm" isActive={false}>
-                <div className="space-y-2">
-                    <div className="flex justify-between">
-                        <span className="text-hacker-neon">CPU_USAGE:</span>
-                        <span className="text-white font-bold">12%</span>
-                    </div>
-                    <div className="w-full bg-hacker-dim h-4 border border-hacker-neon">
-                        <div className="bg-hacker-neon h-full w-[12%] shadow-[0_0_5px_#00FF00]"></div>
-                    </div>
-                    <div className="flex justify-between">
-                        <span className="text-hacker-neon">RAM_ALLOC:</span>
-                        <span className="text-white font-bold">64MB</span>
-                    </div>
-                    <div className="w-full bg-hacker-dim h-4 border border-hacker-neon">
-                        <div className="bg-hacker-neon h-full w-[45%] shadow-[0_0_5px_#00FF00]"></div>
-                    </div>
-                    <div className="flex justify-between mt-2 pt-2 border-t border-hacker-neon/30">
-                        <span className="text-hacker-neon">NET_SEC:</span>
-                        <span className="text-hacker-neon animate-pulse font-bold bg-hacker-neon text-black px-1">ENCRYPTED</span>
-                    </div>
-                </div>
-            </RetroWindow>
-
-            <RetroWindow title="Quick_Links" className="text-sm" isActive={false}>
-                <ul className="space-y-2">
-                    <li>
-                        <a href="https://github.com/marllondevsec" target="_blank" rel="noreferrer" className="group flex items-center text-hacker-red hover:text-white px-1 transition-colors text-lg font-bold">
-                             <span className="w-2 h-2 bg-hacker-red mr-2 group-hover:bg-white animate-pulse"></span> {'>'} GitHub Profile
+                        <a 
+                            href="https://www.linkedin.com/in/marllondevsec/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2 bg-blue-600/20 border border-blue-500 text-blue-300 py-3 hover:bg-blue-600 hover:text-white transition-all font-pixel text-xs hover:shadow-[0_0_15px_#2563eb]"
+                        >
+                            <Linkedin size={14} />
+                            LINKEDIN LINK
                         </a>
-                    </li>
-                    <li>
-                         <a href="https://www.linkedin.com/in/marllondevsec/" target="_blank" rel="noreferrer" className="group flex items-center text-hacker-red hover:text-white px-1 transition-colors text-lg font-bold">
-                             <span className="w-2 h-2 bg-hacker-red mr-2 group-hover:bg-white animate-pulse"></span> {'>'} LinkedIn
-                         </a>
-                    </li>
-                    <li>
-                         <a href="#" className="group flex items-center text-hacker-red hover:text-white px-1 transition-colors pointer-events-none opacity-50 text-lg font-bold">
-                             <span className="w-2 h-2 bg-hacker-red mr-2 group-hover:bg-white"></span> {'>'} PGP Key
-                         </a>
-                    </li>
-                </ul>
-            </RetroWindow>
+                    </div>
 
-            <div className="flex justify-center">
-                 <img src="https://media.tenor.com/On7KVXzevlAAAAAC/under-construction-90s.gif" alt="Under Construction" className="w-32 opacity-80 filter hue-rotate-90 saturate-200" />
+                    {/* Right Column: Content */}
+                    <div className="space-y-8">
+                        {/* Quote Section */}
+                        <div className="border-l-2 border-hacker-green pl-6 py-2">
+                            <p className="text-2xl md:text-3xl italic text-white/90 font-light leading-tight">
+                                "Security is a process, not a product."
+                            </p>
+                            <p className="text-hacker-green mt-2 font-bold text-lg">— Bruce Schneier</p>
+                        </div>
+
+                        {/* Bio */}
+                        <div className="space-y-4 text-xl">
+                            <p>
+                                <span className="text-hacker-green font-bold mr-2">root@marllon:~$</span>
+                                I specialize in low-level programming, OS internals, reverse engineering, and <span className="text-neon-red font-bold text-glow-red">Malware Research</span>.
+                            </p>
+                            <p>
+                                My work focuses on offensive security operations, developing custom tooling for <span className="text-neon-red font-bold">Red Teams</span>, and understanding the memory execution flow of complex systems.
+                            </p>
+                        </div>
+
+                        {/* Skills Grid */}
+                        <div>
+                            <h3 className="font-pixel text-sm text-hacker-green mb-4 flex items-center gap-2 border-b border-hacker-green/30 pb-2">
+                                <Cpu size={16} /> COMPLIED_SKILLSETS
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {[
+                                    { name: "C / C++ / Assembly", icon: true },
+                                    { name: "Reverse Engineering", danger: true },
+                                    { name: "Malware Analysis", danger: true },
+                                    { name: "OS Internals (Win/Linux)", icon: true },
+                                    { name: "Security Automation", icon: true },
+                                    { name: "Penetration Testing", danger: true },
+                                ].map((skill, i) => (
+                                    <div key={i} className={`
+                                        flex items-center gap-3 p-2 border border-transparent hover:border-hacker-green/50 bg-white/5 hover:bg-white/10 transition-colors
+                                        ${skill.danger ? 'text-neon-red' : 'text-terminal-light'}
+                                    `}>
+                                        {skill.danger ? <Skull size={16} /> : <ArrowRight size={16} className="text-hacker-green" />}
+                                        <span className={skill.danger ? "font-bold tracking-wide" : ""}>{skill.name}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Experience Log */}
+                        <div>
+                             <h3 className="font-pixel text-sm text-hacker-green mb-4 flex items-center gap-2 border-b border-hacker-green/30 pb-2">
+                                <Shield size={16} /> CAREER_LOG
+                            </h3>
+                            <p className="text-lg text-white/80">
+                                Professional IT experience since <span className="text-hacker-green">2021</span>. Currently completing Computer Science degree with a specialized thesis on cybersecurity methodologies. Rebuilt my entire workflow to focus on <span className="text-neon-red">Offensive Security</span> and Low-Level experimentation.
+                            </p>
+                        </div>
+                    </div>
+                    </div>
+                </RetroBox>
+
+                {/* --- CONTACT SECTION FOR RECRUITERS --- */}
+                <RetroBox id="contact" title="ENCRYPTED_UPLINK">
+                   <div className="flex flex-col gap-4">
+                      <div className="text-center md:text-left">
+                          <h3 className="text-hacker-green font-pixel text-sm flex items-center justify-center md:justify-start gap-2 mb-2">
+                              <div className="w-2 h-2 bg-neon-red animate-pulse rounded-full shadow-[0_0_5px_red]"></div>
+                              SECURE_CHANNEL_READY
+                          </h3>
+                          <p className="text-terminal-light/60 text-sm max-w-lg mb-4">
+                              Initiate encrypted transmission to contact Marllon DevSec regarding recruitment or security operations.
+                          </p>
+                      </div>
+                      <TerminalContact />
+                   </div>
+                </RetroBox>
             </div>
-          </div>
+          )}
 
-        </div>
+          {/* --- PROJECTS TAB --- */}
+          {view === 'projects' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <RetroBox id="projects" title="PUBLIC_REPOSITORIES">
+                    <div className="mb-6 border-b border-hacker-green/30 pb-4 flex justify-between items-end">
+                        <div>
+                            <div className="text-hacker-green font-pixel text-xs mb-1">SOURCE</div>
+                            <div className="text-xl">github.com/marllondevsec</div>
+                        </div>
+                        <div className="text-right hidden md:block">
+                            <div className="text-hacker-green font-pixel text-xs mb-1">TOTAL_FETCHED</div>
+                            <div className="text-xl">{repos.length} OBJECTS</div>
+                        </div>
+                    </div>
 
-        {/* Footer */}
-        <footer className="mt-12 border-t border-hacker-neon pt-4 text-center text-sm text-hacker-neon/80">
-            <p className="animate-pulse">COPYRIGHT © 2024 MARLLON_DEVSEC. ALL RIGHTS RESERVED.</p>
-            <p>OPTIMIZED FOR NETSCAPE NAVIGATOR 4.0 @ 800x600</p>
+                    {loading ? (
+                    <div className="text-center py-20">
+                        <div className="inline-block w-4 h-4 bg-hacker-green animate-bounce mx-1"></div>
+                        <div className="inline-block w-4 h-4 bg-hacker-green animate-bounce mx-1 delay-100"></div>
+                        <div className="inline-block w-4 h-4 bg-hacker-green animate-bounce mx-1 delay-200"></div>
+                        <p className="mt-4 font-pixel text-xs text-hacker-green">FETCHING_DATA...</p>
+                    </div>
+                    ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {repos.map((repo) => (
+                        <a 
+                            key={repo.id} 
+                            href={repo.html_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group relative bg-black/50 border border-hacker-green/40 p-5 hover:border-hacker-green hover:shadow-neon transition-all duration-200 flex flex-col h-full"
+                        >
+                            <div className="flex justify-between items-start mb-3">
+                                <h3 className="font-pixel text-sm text-hacker-green group-hover:underline decoration-hacker-green underline-offset-4">
+                                    {repo.name}
+                                </h3>
+                                <ExternalLink size={14} className="text-hacker-green opacity-50 group-hover:opacity-100" />
+                            </div>
+                            
+                            <p className="text-terminal-light/80 text-lg mb-6 flex-grow leading-snug">
+                            {repo.description || "Project description unavailable. Access restricted or undefined."}
+                            </p>
+                            
+                            <div className="flex items-center gap-4 text-sm font-mono text-hacker-green/70 pt-4 border-t border-hacker-green/20">
+                                <div className="flex items-center gap-1">
+                                    <div className="w-2 h-2 bg-neon-red shadow-[0_0_5px_red]"></div>
+                                    {repo.language || 'Raw Data'}
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <Star size={12} /> {repo.stargazers_count}
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <GitBranch size={12} /> Fork
+                                </div>
+                            </div>
+                        </a>
+                        ))}
+                    </div>
+                    )}
+                    
+                    <div className="mt-12 flex justify-center">
+                        <a href="https://github.com/marllondevsec?tab=repositories" target="_blank" rel="noreferrer" className="flex items-center gap-2 border border-hacker-green px-8 py-3 hover:bg-hacker-green hover:text-black transition-colors font-pixel text-xs group">
+                            <AlertTriangle size={14} className="group-hover:animate-pulse" />
+                            ACCESS_FULL_DATABASE_EXTERNALLY
+                        </a>
+                    </div>
+                </RetroBox>
+            </div>
+          )}
+
+        </main>
+
+        <footer className="border-t border-hacker-green/30 bg-black py-6 text-center z-20 font-terminal text-hacker-green/50 text-sm">
+          <p className="mb-2">NO SYSTEM IS SAFE // MARLLON_DEVSEC © {new Date().getFullYear()}</p>
         </footer>
       </div>
     </div>
   );
-}
+};
 
 export default App;
