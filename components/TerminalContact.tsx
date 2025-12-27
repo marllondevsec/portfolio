@@ -5,7 +5,7 @@ const TerminalContact: React.FC = () => {
   const [step, setStep] = useState<'IDLE' | 'EMAIL' | 'MESSAGE' | 'SENDING' | 'SUCCESS'>('IDLE');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [history, setHistory] = useState<string[]>(['> INITIALIZING SECURE CONNECTION...', '> WAITING FOR USER INPUT...']);
+  const [history, setHistory] = useState<string[]>(['&gt; INITIALIZING SECURE CONNECTION...', '&gt; WAITING FOR USER INPUT...']);
   const [inputVal, setInputVal] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -26,7 +26,7 @@ const TerminalContact: React.FC = () => {
 
   const startSequence = () => {
     setStep('EMAIL');
-    setHistory(prev => [...prev, '> INITIATE UPLINK SEQUENCE [Y/N]? Y', '> ENTER ORIGIN IDENTITY (YOUR EMAIL):']);
+    setHistory(prev => [...prev, '&gt; INITIATE UPLINK SEQUENCE [Y/N]? Y', '&gt; ENTER ORIGIN IDENTITY (YOUR EMAIL):']);
   };
 
   const handleInputSubmit = (e: React.FormEvent) => {
@@ -38,11 +38,11 @@ const TerminalContact: React.FC = () => {
 
     if (step === 'EMAIL') {
       setEmail(val);
-      setHistory(prev => [...prev, `> ${val}`, '> IDENTITY VERIFIED.', '> ENTER TRANSMISSION DATA (MESSAGE):']);
+      setHistory(prev => [...prev, `&gt; ${val}`, '&gt; IDENTITY VERIFIED.', '&gt; ENTER TRANSMISSION DATA (MESSAGE):']);
       setStep('MESSAGE');
     } else if (step === 'MESSAGE') {
       setMessage(val);
-      setHistory(prev => [...prev, `> [DATA HIDDEN]`, '> PREPARING PAYLOAD...', '> ENCRYPTING PACKETS...']);
+      setHistory(prev => [...prev, `&gt; [DATA HIDDEN]`, '&gt; PREPARING PAYLOAD...', '&gt; ENCRYPTING PACKETS...']);
       setStep('SENDING');
       simulateSending(val);
     }
@@ -52,16 +52,16 @@ const TerminalContact: React.FC = () => {
     let progress = 0;
     const interval = setInterval(() => {
       progress += 20;
-      setHistory(prev => [...prev, `> UPLOADING... ${progress}%`]);
+      setHistory(prev => [...prev, `&gt; UPLOADING... ${progress}%`]);
       
       if (progress >= 100) {
         clearInterval(interval);
         setStep('SUCCESS');
         setHistory(prev => [
           ...prev, 
-          '> UPLOAD COMPLETE.', 
-          '> ESTABLISHING EXTERNAL MAIL CLIENT LINK...',
-          '> SESSION TERMINATED.'
+          '&gt; UPLOAD COMPLETE.', 
+          '&gt; ESTABLISHING EXTERNAL MAIL CLIENT LINK...',
+          '&gt; SESSION TERMINATED.'
         ]);
         
         // Construct mailto link
@@ -81,7 +81,7 @@ const TerminalContact: React.FC = () => {
       <div className="flex-grow space-y-1 text-terminal-light overflow-y-auto mb-4">
         {history.map((line, idx) => (
           <div key={idx} className="break-words">
-            <span className="text-hacker-green mr-2">{line.startsWith('>') ? '' : '>'}</span>
+            <span className="text-hacker-green mr-2">{line.startsWith('&gt;') ? '' : '&gt;'}</span>
             {line}
           </div>
         ))}
@@ -121,17 +121,17 @@ const TerminalContact: React.FC = () => {
 
         {step === 'SENDING' && (
           <div className="text-hacker-green animate-pulse">
-            > PROCESSING_REQUEST... <span className="inline-block w-2 h-4 bg-hacker-green ml-1 animate-blink"></span>
+            &gt; PROCESSING_REQUEST... <span className="inline-block w-2 h-4 bg-hacker-green ml-1 animate-blink"></span>
           </div>
         )}
 
         {step === 'SUCCESS' && (
            <div className="text-neon-red mt-2">
-             > TRANSMISSION_HANDOFF_COMPLETE. CHECK YOUR DEFAULT MAIL CLIENT.
+             &gt; TRANSMISSION_HANDOFF_COMPLETE. CHECK YOUR DEFAULT MAIL CLIENT.
              <button 
                onClick={() => {
                  setStep('IDLE');
-                 setHistory(['> RESETTING CONNECTION...', '> READY.']);
+                 setHistory(['&gt; RESETTING CONNECTION...', '&gt; READY.']);
                  setEmail('');
                  setMessage('');
                }}
