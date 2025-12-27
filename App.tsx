@@ -29,9 +29,9 @@ const App: React.FC = () => {
      return (
         <div className="min-h-screen bg-black flex items-center justify-center font-terminal text-hacker-green text-2xl">
            <div className="text-left">
-              <p>> INITIALIZING KERNEL...</p>
-              <p>> MOUNTING FILESYSTEM... [OK]</p>
-              <p>> LOADING MARLLON_DEVSEC PROFILE...</p>
+              <p>&gt; INITIALIZING KERNEL...</p>
+              <p>&gt; MOUNTING FILESYSTEM... [OK]</p>
+              <p>&gt; LOADING MARLLON_DEVSEC PROFILE...</p>
               <span className="animate-blink">_</span>
            </div>
         </div>
@@ -60,7 +60,7 @@ const App: React.FC = () => {
 
         <main className="flex-grow max-w-5xl mx-auto w-full px-4 pb-16 transition-opacity duration-500">
           
-          {/* --- PROFILE TAB --- */}
+          {/* PROFILE TAB */}
           {view === 'profile' && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
                 <RetroBox id="profile" title="USER_IDENTITY_LOG">
@@ -99,9 +99,9 @@ const App: React.FC = () => {
                         {/* Quote Section */}
                         <div className="border-l-2 border-hacker-green pl-6 py-2">
                             <p className="text-2xl md:text-3xl italic text-white/90 font-light leading-tight">
-                                "Security is a process, not a product."
+                                &quot;Security is a process, not a product.&quot;
                             </p>
-                            <p className="text-hacker-green mt-2 font-bold text-lg">— Bruce Schneier</p>
+                            <p className="text-hacker-green mt-2 font-bold text-lg">- Bruce Schneier</p>
                         </div>
 
                         {/* Bio */}
@@ -153,7 +153,7 @@ const App: React.FC = () => {
                     </div>
                 </RetroBox>
 
-                {/* --- CONTACT SECTION FOR RECRUITERS --- */}
+                {/* CONTACT SECTION FOR RECRUITERS */}
                 <RetroBox id="contact" title="ENCRYPTED_UPLINK">
                    <div className="flex flex-col gap-4">
                       <div className="text-center md:text-left">
@@ -171,7 +171,7 @@ const App: React.FC = () => {
             </div>
           )}
 
-          {/* --- PROJECTS TAB --- */}
+          {/* PROJECTS TAB */}
           {view === 'projects' && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <RetroBox id="projects" title="PUBLIC_REPOSITORIES">
@@ -244,7 +244,7 @@ const App: React.FC = () => {
         </main>
 
         <footer className="border-t border-hacker-green/30 bg-black py-6 text-center z-20 font-terminal text-hacker-green/50 text-sm">
-          <p className="mb-2">NO SYSTEM IS SAFE // MARLLON_DEVSEC © {new Date().getFullYear()}</p>
+          <p className="mb-2">NO SYSTEM IS SAFE // MARLLON_DEVSEC {new Date().getFullYear()}</p>
         </footer>
       </div>
     </div>
