@@ -52,7 +52,7 @@ const App: React.FC = () => {
           </h1>
           <div className="h-px w-32 bg-hacker-green mx-auto mb-4 shadow-neon"></div>
           <p className="font-terminal text-xl text-hacker-green/80 tracking-widest uppercase">
-            System Administrator // Security Researcher
+            Developer // Cybersecurity Engineer
           </p>
         </header>
 
@@ -80,7 +80,7 @@ const App: React.FC = () => {
                         
                         <div className="bg-hacker-green/5 border border-hacker-green/30 p-3 text-center">
                            <div className="font-pixel text-xs text-hacker-green mb-1">CURRENT STATUS</div>
-                           <div className="text-white animate-pulse">AVAILABLE FOR OPS</div>
+                           <div className="text-white animate-pulse">Available for Opportunities</div>
                         </div>
 
                         <a 
@@ -99,20 +99,18 @@ const App: React.FC = () => {
                         {/* Quote Section */}
                         <div className="border-l-2 border-hacker-green pl-6 py-2">
                             <p className="text-2xl md:text-3xl italic text-white/90 font-light leading-tight">
-                                &quot;Security is a process, not a product.&quot;
+                                &quot;You can't defend what you don't understand..&quot;
                             </p>
-                            <p className="text-hacker-green mt-2 font-bold text-lg">- Bruce Schneier</p>
+                            <p className="text-hacker-green mt-2 font-bold text-lg">- Marco Ranum</p>
                         </div>
 
                         {/* Bio */}
                         <div className="space-y-4 text-xl">
                             <p>
                                 <span className="text-hacker-green font-bold mr-2">root@marllon:~$</span>
-                                I specialize in low-level programming, OS internals, reverse engineering, and <span className="text-neon-red font-bold text-glow-red">Malware Research</span>.
+                               Information Technology professional with a strong foundation in low-level programming, networks, and operating systems, and hands-on experience across multiple cybersecurity domains, including reverse engineering and web vulnerability analysis. Experienced in responsible disclosure of OWASP Top 10 vulnerabilities in governmental systems.
                             </p>
-                            <p>
-                                My work focuses on offensive security operations, developing custom tooling for <span className="text-neon-red font-bold">Red Teams</span>, and understanding the memory execution flow of complex systems.
-                            </p>
+                
                         </div>
 
                         {/* Skills Grid */}
@@ -127,7 +125,9 @@ const App: React.FC = () => {
                                     { name: "Malware Analysis", danger: true },
                                     { name: "OS Internals (Win/Linux)", icon: true },
                                     { name: "Security Automation", icon: true },
-                                    { name: "Penetration Testing", danger: true },
+                                    { name: "SOC/NOC", danger: true },
+                                    { name: "Vulnerability Research", danger: true },
+                                    { name: "Python", icon: true },
                                 ].map((skill, i) => (
                                     <div key={i} className={`
                                         flex items-center gap-3 p-2 border border-transparent hover:border-hacker-green/50 bg-white/5 hover:bg-white/10 transition-colors
@@ -146,7 +146,7 @@ const App: React.FC = () => {
                                 <Shield size={16} /> CAREER_LOG
                             </h3>
                             <p className="text-lg text-white/80">
-                                Professional IT experience since <span className="text-hacker-green">2021</span>. Currently completing Computer Science degree with a specialized thesis on cybersecurity methodologies. Rebuilt my entire workflow to focus on <span className="text-neon-red">Offensive Security</span> and Low-Level experimentation.
+                                Professional IT experience since <span className="text-hacker-green">2021</span>. Currently completing Computer Science degree with a specialized thesis on cybersecurity methodologies.
                             </p>
                         </div>
                     </div>
@@ -162,7 +162,7 @@ const App: React.FC = () => {
                               SECURE_CHANNEL_READY
                           </h3>
                           <p className="text-terminal-light/60 text-sm max-w-lg mb-4">
-                              Initiate encrypted transmission to contact Marllon DevSec regarding recruitment or security operations.
+                              contact Marllon DevSec regarding recruitment.
                           </p>
                       </div>
                       <TerminalContact />
@@ -244,7 +244,7 @@ const App: React.FC = () => {
         </main>
 
         <footer className="border-t border-hacker-green/30 bg-black py-6 text-center z-20 font-terminal text-hacker-green/50 text-sm">
-          <p className="mb-2">NO SYSTEM IS SAFE // MARLLON_DEVSEC {new Date().getFullYear()}</p>
+          <p className="mb-2">Security is not a product, but a process.{new Date().getFullYear()}</p>
         </footer>
       </div>
     </div>
