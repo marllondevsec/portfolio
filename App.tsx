@@ -104,7 +104,7 @@ const App: React.FC = () => {
                             <p className="text-hacker-green mt-2 font-bold text-lg">- Marco Ranum</p>
                         </div>
 
-                    {/* Bio */}
+                   {/* Bio */}
 <div className="space-y-4 text-xl">
   <div className="text-white text-base leading-relaxed space-y-2">
     <p>
@@ -126,12 +126,8 @@ const App: React.FC = () => {
       <span className="text-hacker-green font-bold">Infrastructure</span>, bringing technical skills and a strong willingness to learn and grow.
     </p>
   </div>
-
 </div>
 
-
-                
-                        </div>
 
                         {/* Skills Grid */}
                         <div>
