@@ -107,8 +107,23 @@ const App: React.FC = () => {
                         {/* Bio */}
                         <div className="space-y-4 text-xl">
                             <p>
-                                <span className="text-hacker-green font-bold mr-2">root@marllon:~$</span>
-                              Information Technology professional with a solid foundation in programming, networks, and operating systems, and hands-on experience in cybersecurity concepts, including web vulnerability analysis and reverse engineering. Experienced in responsible disclosure of OWASP Top 10 vulnerabilities. Seeking entry-level opportunities in IT Support, NOC, SOC Jr, or Infrastructure, bringing technical skills and a strong willingness to learn and grow.
+                               <div className="text-white text-base leading-relaxed">
+  <span className="text-hacker-green font-bold mr-2">root@marllon:~$</span>
+  <span>
+    Information Technology professional with a solid foundation in 
+    <span className="text-hacker-green font-bold">programming</span>, 
+    <span className="text-hacker-green font-bold">networks</span>, and 
+    <span className="text-hacker-green font-bold">operating systems</span>, with hands-on experience in 
+    <span className="text-hacker-green font-bold">cybersecurity concepts</span>, including 
+    <span className="text-hacker-green font-bold">web vulnerability analysis</span> and 
+    <span className="text-hacker-green font-bold">reverse engineering</span>. Experienced in responsible disclosure of 
+    <span className="text-hacker-green font-bold">OWASP Top 10 vulnerabilities</span>. Seeking entry-level opportunities in 
+    <span className="text-hacker-green font-bold">IT Support</span>, 
+    <span className="text-hacker-green font-bold">NOC</span>, 
+    <span className="text-hacker-green font-bold">SOC Jr</span>, or 
+    <span className="text-hacker-green font-bold">Infrastructure</span>, bringing technical skills and a strong willingness to learn and grow.
+  </span>
+</div>
 
                 
                         </div>
@@ -145,9 +160,10 @@ const App: React.FC = () => {
                              <h3 className="font-pixel text-sm text-hacker-green mb-4 flex items-center gap-2 border-b border-hacker-green/30 pb-2">
                                 <Shield size={16} /> CAREER_LOG
                             </h3>
-                            <p className="text-lg text-white/80">
-                                Professional IT experience since <span className="text-hacker-green">2021</span>. ith hands-on experience in systems, networks, and technical support. Currently completing Computer Science degree with a specialized thesis on cybersecurity methodologies.
-                            </p>
+                           <p className="text-lg text-white/80">
+  Professional IT experience since <span className="text-hacker-green">2021</span>, with hands-on experience in systems, networks, and technical support. Currently completing a Computer Science degree with a specialized thesis on cybersecurity methodologies.
+</p>
+
                         </div>
                     </div>
                     </div>
