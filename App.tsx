@@ -108,8 +108,8 @@ const App: React.FC = () => {
                         <div className="space-y-4 text-xl">
                             <p>
                                 <span className="text-hacker-green font-bold mr-2">root@marllon:~$</span>
-                               Information Technology professional with a strong foundation in low-level programming, networks, and operating systems, and hands-on experience across multiple cybersecurity domains, including reverse engineering and web vulnerability analysis. Experienced in responsible disclosure of OWASP Top 10 vulnerabilities in governmental systems.
-                            </p>
+                              Information Technology professional with a solid foundation in programming, networks, and operating systems, and hands-on experience in cybersecurity concepts, including web vulnerability analysis and reverse engineering. Experienced in responsible disclosure of OWASP Top 10 vulnerabilities. Seeking entry-level opportunities in IT Support, NOC, SOC Jr, or Infrastructure, bringing technical skills and a strong willingness to learn and grow.
+
                 
                         </div>
 
@@ -146,7 +146,7 @@ const App: React.FC = () => {
                                 <Shield size={16} /> CAREER_LOG
                             </h3>
                             <p className="text-lg text-white/80">
-                                Professional IT experience since <span className="text-hacker-green">2021</span>. Currently completing Computer Science degree with a specialized thesis on cybersecurity methodologies.
+                                Professional IT experience since <span className="text-hacker-green">2021</span>. ith hands-on experience in systems, networks, and technical support. Currently completing Computer Science degree with a specialized thesis on cybersecurity methodologies.
                             </p>
                         </div>
                     </div>
