@@ -96,35 +96,29 @@ const App: React.FC = () => {
 
                   {/* Right Column */}
                   <div className="space-y-8">
-                    {/* Quote */}
-                    <div className="border-l-2 border-hacker-green pl-6 py-2">
-                      <p className="text-2xl md:text-3xl italic text-white/90 font-light leading-tight">
-                        &quot;You can't defend what you don't understand..&quot;
-                      </p>
-                      <p className="text-hacker-green mt-2 font-bold text-lg">- Marco Ranum</p>
-                    </div>
+ <div className="space-y-4 text-xl">
+  <div className="text-white text-base leading-relaxed space-y-2">
+    <p>
+      <span className="text-hacker-green font-bold mr-2">root@marllon:~$</span>
+      Information Technology professional with a solid foundation in{" "}
+      <span className="text-hacker-green/70 font-bold">programming</span>,{" "}
+      <span className="text-red-500 font-bold">networks</span>, and{" "}
+      <span className="text-hacker-green/70 font-bold">operating systems</span>, with hands-on experience in{" "}
+      <span className="text-red-500 font-bold">cybersecurity concepts</span>, including{" "}
+      <span className="text-hacker-green/70 font-bold">web vulnerability analysis</span> and{" "}
+      <span className="text-red-500 font-bold">reverse engineering</span>.
+    </p>
+    <p>
+      Experienced in responsible disclosure of{" "}
+      <span className="text-hacker-green/70 font-bold">OWASP Top 10 vulnerabilities</span>. Seeking entry-level opportunities in{" "}
+      <span className="text-red-500 font-bold">IT Support</span>,{" "}
+      <span className="text-hacker-green/70 font-bold">NOC</span>,{" "}
+      <span className="text-red-500 font-bold">SOC Jr</span>, or{" "}
+      <span className="text-hacker-green/70 font-bold">Infrastructure</span>, bringing technical skills and a strong willingness to learn and grow.
+    </p>
+  </div>
+</div>
 
-                    {/* Bio */}
-                    <div className="space-y-4 text-xl">
-                      <div className="text-white text-base leading-relaxed space-y-2">
-                        <p>
-                          <span className="text-hacker-green font-bold mr-2">root@marllon:~$</span>
-                          Information Technology professional with a solid foundation in{' '}
-                          <span className="text-hacker-green font-bold">programming</span>,{' '}
-                          <span className="text-hacker-green font-bold">networks</span>, and{' '}
-                          <span className="text-hacker-green font-bold">operating systems</span>, with hands-on experience in{' '}
-                          <span className="text-hacker-green font-bold">cybersecurity concepts</span>, including{' '}
-                          <span className="text-hacker-green font-bold">web vulnerability analysis</span> and{' '}
-                          <span className="text-hacker-green font-bold">reverse engineering</span>.
-                        </p>
-                        <p>
-                          Experienced in responsible disclosure of{' '}
-                          <span className="text-hacker-green font-bold">OWASP Top 10 vulnerabilities</span>. Seeking entry-level opportunities in{' '}
-                          <span className="text-hacker-green font-bold">IT Support</span>, <span className="text-hacker-green font-bold">NOC</span>,{' '}
-                          <span className="text-hacker-green font-bold">SOC Jr</span>, or <span className="text-hacker-green font-bold">Infrastructure</span>, bringing technical skills and a strong willingness to learn and grow.
-                        </p>
-                      </div>
-                    </div>
 
                     {/* Skills Grid */}
                     <div>
@@ -154,25 +148,23 @@ const App: React.FC = () => {
                         ))}
                       </div>
                     </div>
+{/* Experience Log */}
+<div className="space-y-3">
+  <h3 className="font-pixel text-sm text-hacker-green mb-2 flex items-center gap-2 border-b border-hacker-green/30 pb-2">
+    <Shield size={16} /> CAREER_LOG
+  </h3>
+  <p className="text-lg text-white/80 leading-relaxed">
+    Professional IT experience since <span className="text-hacker-green font-bold">2021</span>, with hands-on experience in{' '}
+    <span className="text-hacker-green/70 font-bold">systems</span>,{' '}
+    <span className="text-red-500 font-bold">networks</span>, and{' '}
+    <span className="text-hacker-green/70 font-bold">technical support</span>.
+  </p>
+  <p className="text-lg text-white/80 leading-relaxed">
+    Currently completing a <span className="text-hacker-green font-bold">Computer Science degree</span> with a specialized thesis on{' '}
+    <span className="text-red-500 font-bold">cybersecurity methodologies</span>.
+  </p>
+</div>
 
-                    {/* Experience Log */}
-                    <div className="space-y-3">
-                      <h3 className="font-pixel text-sm text-hacker-green mb-2 flex items-center gap-2 border-b border-hacker-green/30 pb-2">
-                        <Shield size={16} /> CAREER_LOG
-                      </h3>
-                      <p className="text-lg text-white/80 leading-relaxed">
-                        Professional IT experience since <span className="text-hacker-green font-bold">2021</span>, with hands-on experience in{' '}
-                        <span className="text-hacker-green font-bold">systems</span>, <span className="text-hacker-green font-bold">networks</span>, and{' '}
-                        <span className="text-hacker-green font-bold">technical support</span>.
-                      </p>
-                      <p className="text-lg text-white/80 leading-relaxed">
-                        Currently completing a <span className="text-hacker-green font-bold">Computer Science degree</span> with a specialized thesis on{' '}
-                        <span className="text-hacker-green font-bold">cybersecurity methodologies</span>.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </RetroBox>
 
               {/* CONTACT SECTION FOR RECRUITERS */}
               <RetroBox id="contact" title="ENCRYPTED_UPLINK">
