@@ -168,10 +168,10 @@ function App() {
                 </div>
                 <div className="text-[#00ff41] mb-6 whitespace-pre-wrap pl-4 border-l border-[#00ff41]/30 leading-loose">
                   {`Hello, visitor. Welcome to my website.
-Here you’ll find my projects, experiments, and technical work gathered in one place, along with some information about me.
+Here you'll find my projects, experiments, and technical work gathered in one place, along with some information about me.
 
-If it isn’t already clear from the aesthetics, I simply love retro computing and the underground side of the internet.
-I still don’t know at what point humanity decided it was a good idea to abandon the wonderful GeoCities aesthetic in favor of Corporate Memphis.`}
+If it isn't already clear from the aesthetics, I simply love retro computing and the underground side of the internet.
+I still don't know at what point humanity decided it was a good idea to abandon the wonderful GeoCities aesthetic in favor of Corporate Memphis.`}
                 </div>
 
                 <div className="mt-6 animate-pulse">
@@ -387,7 +387,7 @@ I still don’t know at what point humanity decided it was a good idea to abando
                 </div>
                 
                 <div className="flex justify-between mt-2">
-                    <span>Status:</span>
+                    <span>{`> STATUS:`}</span>
                     <span className="text-[#00ff41] font-bold animate-pulse">ONLINE</span>
                 </div>
             </div>
