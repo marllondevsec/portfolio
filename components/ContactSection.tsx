@@ -84,18 +84,18 @@ const ContactSection: React.FC = () => {
          </div>
          <div className="space-y-1 text-[#00ff41]/70">
             <div className="flex justify-between items-center">
-               <span>> TARGET_LOCATION:</span>
+               <span> TARGET_LOCATION:</span>
                <span className="text-white flex items-center gap-2">
                  <MapPin size={14} className="text-[#00ff41]" /> 
                  RIO DE JANEIRO, BRAZIL
                </span>
             </div>
             <div className="flex justify-between">
-               <span>> TIMEZONE:</span>
+               <span> TIMEZONE:</span>
                <span className="text-white">GMT-3 (Brasilia Standard Time)</span>
             </div>
             <div className="flex justify-between">
-               <span>> STATUS:</span>
+               <span> STATUS:</span>
                <span className="text-[#00ff41] animate-pulse font-bold">LISTENING...</span>
             </div>
          </div>
