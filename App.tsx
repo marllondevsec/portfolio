@@ -334,8 +334,7 @@ I still don’t know at what point humanity decided it was a good idea to abando
                           : 'text-[#00ff41] hover:bg-[#00ff41]/20 border border-transparent hover:border-[#00ff41]'
                       }`}
                     >
-                      {/* ESCAPED '>' to avoid JSX parsing error */}
-                      <span>&gt; {item.label}</span>
+                      <span className="menu-label">{item.label}</span>
                       {activeSection === item.id && <ChevronRight size={16} className="animate-pulse" />}
                     </button>
                   </li>
