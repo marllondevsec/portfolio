@@ -168,10 +168,10 @@ function App() {
                 </div>
                 <div className="text-[#00ff41] mb-6 whitespace-pre-wrap pl-4 border-l border-[#00ff41]/30 leading-loose">
                   {`Hello, visitor. Welcome to my website.
-Here you'll find my projects, experiments, and technical work gathered in one place, along with some information about me.
-
-If it isn't already clear from the aesthetics, I simply love retro computing and the underground side of the internet.
-I still don't know at what point humanity decided it was a good idea to abandon the wonderful GeoCities aesthetic in favor of Corporate Memphis.`}
+ Here you'll find my projects, experiments, and technical work gathered in one place, along with some information about me.
+ 
+ If it isn't already clear from the aesthetics, I simply love retro computing and the underground side of the internet.
+ I still don't know at what point humanity decided it was a good idea to abandon the wonderful GeoCities aesthetic in favor of Corporate Memphis.`}
                 </div>
 
                 <div className="mt-6 animate-pulse">
@@ -315,18 +315,18 @@ I still don't know at what point humanity decided it was a good idea to abandon 
              
              <div className="h-2 w-32 bg-[#00ff41] mt-4 mb-4"></div>
              <p className="text-xl md:text-2xl text-[#00ff41] tracking-widest font-bold">
-               [ CYBERSECURITY OPERATIVE ]
+               Open to Opportunities
              </p>
           </div>
 
           {/* Right Content (Links) - High Z-index */}
           <div className="flex space-x-4 mt-8 md:mt-0 shrink-0 relative z-20">
-            <a href="https://github.com/marllondevsec" target="_blank" rel="noopener noreferrer" className="group relative px-6 py-3 border-2 border-[#00ff41] bg-black hover:bg-[#00ff41] transition-colors overflow-hidden">
+            <a href="https://github.com/marllondevsec" target="_blank" rel="noopener noreferrer" className="group relative px-6 py-3 border-2 border-[#00ff41] bg-black hover:bg-[#00ff41] transition-colors">
               <div className="relative z-10 flex items-center gap-2 group-hover:text-black font-bold text-lg">
                  <Github size={24} /> <span>GITHUB</span>
               </div>
             </a>
-            <a href="https://www.linkedin.com/in/marllondevsec/" target="_blank" rel="noopener noreferrer" className="group relative px-6 py-3 border-2 border-[#00ff41] bg-black hover:bg-[#00ff41] transition-colors overflow-hidden">
+            <a href="https://www.linkedin.com/in/marllondevsec/" target="_blank" rel="noopener noreferrer" className="group relative px-6 py-3 border-2 border-[#00ff41] bg-black hover:bg-[#00ff41] transition-colors">
               <div className="relative z-10 flex items-center gap-2 group-hover:text-black font-bold text-lg">
                  <Linkedin size={24} /> <span>LINKEDIN</span>
               </div>
